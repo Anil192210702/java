@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class OnlineSupermarket {
+    
+    private List<String> products = new ArrayList<>();
+
+    public void addProduct(String product) {
+        if (product == null || product.isEmpty()) {
+            throw new IllegalArgumentException("Product cannot be null or empty.");
+        }
+        products.add(product);
+        System.out.println(product + " added successfully.");
+    }
+
+    public void purchaseProduct(String product) {
+        if (!products.contains(product)) {
+            throw new IllegalArgumentException("Product not found in the supermarket.");
+        }
+        products.remove(product);
+        System.out.println(product + " purchased successfully.");
+    }
+
+    public static void main(String[] args) {
+        OnlineSupermarket supermarket = new OnlineSupermarket();
+
+        try {
+            supermarket.addProduct("Apple");
+            supermarket.addProduct("Banana");
+            supermarket.addProduct(null); // This will throw an exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("not available: " + e.getMessage());
+        }
+
+        try {
+            supermarket.purchaseProduct("Banana");
+            supermarket.purchaseProduct("Orange"); // This will throw an exception
+        } catch (IllegalArgumentException e) {
+            System.out.println("not available: " + e.getMessage());
+        }
+    }
+}
